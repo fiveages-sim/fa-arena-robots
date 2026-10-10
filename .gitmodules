@@ -1,0 +1,3 @@
+[submodule "deps/robot_usds/humanoid/FiveAges_W2"]
+	path = deps/robot_usds/humanoid/FiveAges_W2
+	url = git@github.com:fiveages-sim/fa-w2-usds.git

@@ -1,0 +1,58 @@
+# Arena registration for FiveAges W2.
+# Chassis is LinkHou S2 (holonomic). Art root in the W2 USD is base_link.
+# Head camera prim: Head_V1/head_link2/head_camera/head_camera
+# After the first Isaac Play, confirm the LaserScan topic and camera prim.
+
+observation_sources_string: lidar
+observation_sources:
+  - lidar
+observation_sources_string_global: lidar
+collision_monitor_sources:
+  - lidar
+observation_sources_dict:
+  lidar:
+    # After launch: ros2 topic list | rg -i 'scan|lidar'
+    topic: ${namespace}/scan
+    sensor_frame: ${frame}lidar_frame
+    max_obstacle_height: 2.0
+    clearing: true
+    marking: true
+    data_type: "LaserScan"
+    raytrace_max_range: 8.0
+    raytrace_min_range: 0.0
+    obstacle_max_range: 2.0
+    obstacle_min_range: 0.0
+    observation_persistence: 0.0
+
+robot_base_frame: base_link
+robot_odom_frame: odom
+robot_sensor_frame: lidar_frame
+robot_model: FiveAges_W2
+
+usd_redirect: ../../../deps/robot_usds/humanoid/FiveAges_W2/FiveAges_W2.usd
+
+robot_radius: 0.35
+scale: 1.0
+footprint: "[ [0.28, 0.27], [0.28, -0.27], [-0.28, -0.27], [-0.28, 0.27] ]"
+is_holonomic: true
+z_offset: 0.0
+
+max_vel_x: 0.4
+max_vel_theta: 1.0
+max_speed_xy: 0.4
+velocity_smoother_max_velocity: [0.4, 0.4, 1.0]
+velocity_smoother_min_velocity: [-0.4, -0.4, -1.0]
+velocity_smoother_max_accel: [0.4, 0.4, 1.5]
+velocity_smoother_max_decel: [-0.4, -0.4, -1.5]
+
+data_logger:
+  robot_stage_name: FiveAges_W2
+  camera_prim_suffix: Head_V1/head_link2/head_camera/head_camera
+  lidar_prim_suffix: base_link
+  pedestrian_root_path: /World/Pedestrians
+
+snapshot:
+  head_camera_suffix: Head_V1/head_link2/head_camera/head_camera
+  back_camera_suffix: Head_V1/head_link2/head_camera/head_camera
+  topdown_half_extent: 6.0
+  topdown_height: 3.0

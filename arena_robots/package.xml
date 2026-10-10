@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>arena_robots</name>
+  <version>0.1.0</version>
+  <description>FiveAges robot registrations for Arena (model_params only).</description>
+  <maintainer email="hiewisaacstudy@gmail.com">ValdezNewton</maintainer>
+  <license>MIT</license>
+  <buildtool_depend>ament_cmake_python</buildtool_depend>
+  <exec_depend>ament_index_python</exec_depend>
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
