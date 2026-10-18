@@ -7,12 +7,17 @@ observation_sources_string: lidar
 observation_sources:
   - lidar
 observation_sources_string_global: lidar
+# Must be non-empty: an empty list omits observation_sources and the
+# collision monitor aborts, which leaves the costmaps inactive and breaks
+# the cmd_vel_smoothed -> cmd_vel bridge. source_timeout 0 means a missing
+# LaserScan does not zero velocity (nav2 treats 0 as "do not block").
 collision_monitor_sources:
   - lidar
 observation_sources_dict:
   lidar:
     # After launch: ros2 topic list | rg -i 'scan|lidar'
     topic: ${namespace}/scan
+    source_timeout: 0.0
     sensor_frame: ${frame}lidar_frame
     max_obstacle_height: 2.0
     clearing: true
@@ -34,7 +39,9 @@ usd_redirect: ../../../deps/robot_usds/humanoid/FiveAges_W2/FiveAges_W2.usd
 robot_radius: 0.35
 scale: 1.0
 footprint: "[ [0.28, 0.27], [0.28, -0.27], [-0.28, -0.27], [-0.28, 0.27] ]"
-is_holonomic: true
+# LinkHou chassis is steered (vx, wz). A holonomic planner sends lateral vy,
+# which this controller does not apply, so the robot stays still.
+is_holonomic: false
 # Wheel collisions bottom out 0.04 m below the USD origin. GRScenes floors are at
 # z=0 after the cm->m scale, on every world. z=0 therefore starts the chassis in
 # the floor; PhysX then shoves it up or flips it. 0.06 m leaves the wheels 2 cm
